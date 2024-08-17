@@ -55,20 +55,23 @@ public class GrapplingGun : MonoBehaviour
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
 
+    private float defaultGravityScale;
+
     private void Start()
     {
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         connectedObject = null;
+        defaultGravityScale = m_rigidbody.gravityScale;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             SetGrapplePoint();
         }
-        else if (Input.GetKey(KeyCode.Mouse0))
+        else if (Input.GetKey(KeyCode.Mouse1))
         {
             if (grappleRope.enabled)
             {
@@ -94,7 +97,7 @@ public class GrapplingGun : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             if (connectedObject)
             {
@@ -104,7 +107,7 @@ public class GrapplingGun : MonoBehaviour
             connectedObject = null;
             grappleRope.enabled = false;
             m_springJoint2D.enabled = false;
-            m_rigidbody.gravityScale = 1;
+            m_rigidbody.gravityScale = defaultGravityScale;
         }
         else
         {
