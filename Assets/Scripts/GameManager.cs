@@ -143,7 +143,6 @@ public class GameManager : MonoBehaviour
     /// <exception cref="NotImplementedException"></exception>
     private void HandleWin()
     {
-        Debug.Log("Game won, moving to next level!");
         SwitchLevel(_level.NextLevel().ToIndex());
     }
 
@@ -155,7 +154,6 @@ public class GameManager : MonoBehaviour
     private void HandleGameStart()
     {
         Debug.Log("Game Started");
-        throw new NotImplementedException();
     }
 }
 

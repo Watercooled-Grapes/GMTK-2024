@@ -31,8 +31,8 @@ public class EdibleScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             gekkoScript.eat(massGiven);
-            Destroy(gameObject); // destroy myself
         }
+        EatAction();
     }
 
     /// <summary>
@@ -40,8 +40,6 @@ public class EdibleScript : MonoBehaviour
     /// </summary>
     protected virtual void EatAction()
     {
-        // add mass of current object
-        _player.GetComponent<Rigidbody2D>().mass = _player.GetComponent<Rigidbody2D>().mass + massGiven;
-        Destroy(gameObject); // destroy myself
+        // do nothing
     }
 }
