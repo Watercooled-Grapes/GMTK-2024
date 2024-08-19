@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3450337429753274409}
   - component: {fileID: 5576118448455761244}
   - component: {fileID: 5662223307538308874}
+  - component: {fileID: 6935066668362703925}
   m_Layer: 0
   m_Name: GameEndObjective
   m_TagString: Untagged
@@ -170,3 +171,16 @@ SpringJoint2D:
   m_Distance: 1.7511139
   m_DampingRatio: 1
   m_Frequency: 1
+--- !u!114 &6935066668362703925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335895749386775289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8796b8c0bf6f43cb88f979a70ef5fa98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  massGiven: 0

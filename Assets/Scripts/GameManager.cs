@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public GameState State;
 
     // actions to trigger when game state changes
-    public static event Action<GameState> onGameStateChanged;
+    public static event Action<GameState> OnGameStateChanged;
 
     #region Singleton
     // singleton instance
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         }
         State = newState;
         // trigger the action, ? prevents null pointer exceptions if no one subscribed.
-        onGameStateChanged?.Invoke(newState);
+        OnGameStateChanged?.Invoke(newState);
     }
 
     /// <summary>
@@ -125,7 +125,8 @@ public class GameManager : MonoBehaviour
     private void HandleWin() {
         // TODO: implement this
         Debug.Log("Game Won");
-        throw new NotImplementedException();
+        SwitchLevel(1);
+        // throw new NotImplementedException();
     }
 
     /// <summary>
