@@ -34,4 +34,14 @@ public class EdibleScript : MonoBehaviour
             Destroy(gameObject); // destroy myself
         }
     }
+
+    /// <summary>
+    /// Custom EatAction behaviour, user-overrideable for different edible objects.
+    /// </summary>
+    protected virtual void EatAction()
+    {
+        // add mass of current object
+        _player.GetComponent<Rigidbody2D>().mass = _player.GetComponent<Rigidbody2D>().mass + massGiven;
+        Destroy(gameObject); // destroy myself
+    }
 }

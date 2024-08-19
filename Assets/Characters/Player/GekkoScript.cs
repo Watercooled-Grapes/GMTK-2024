@@ -78,6 +78,14 @@ namespace Characters.Player
 				anim.SetBool("isAirborne", false);
 			}
 			#endregion
+
+			#region Player check for out-of-bounds
+
+			if (gameObject.transform.localPosition.y <= -50)
+			{
+				GameManager.Instance.ReloadLevel();
+			}
+			#endregion
 		}
     
 		private void Run(float lerpAmount)

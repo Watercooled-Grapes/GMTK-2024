@@ -19,35 +19,47 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-
     // current game state
     public GameState State;
+    [SerializeField] private CurrentLevel _level = CurrentLevel.Tutorial;
+
 
     // actions to trigger when game state changes
     public static event Action<GameState> OnGameStateChanged;
 
     #region Singleton
+
     // singleton instance
     private static GameManager _instance;
-    public static GameManager Instance {
-        get {
-            if (_instance == null) {
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
                 Debug.LogError("GameManager is null!");
             }
+
             return _instance;
         }
     }
 
-    void Awake() {
-        if (_instance) {
+    void Awake()
+    {
+        if (_instance)
+        {
             Destroy(gameObject);
-        } else {
+        }
+        else
+        {
             _instance = this;
         }
 
         // do not destroy the game manager.
         DontDestroyOnLoad(this.gameObject);
     }
+
     #endregion
 
     // Start is called before the first frame update
@@ -59,8 +71,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     ///     Update game states and triggers the game state changed action.
     /// </summary>
-    public void UpdateGameState(GameState newState) {
-        switch (newState) {
+    public void UpdateGameState(GameState newState)
+    {
+        switch (newState)
+        {
             // all kinds of logic
             case GameState.OnGame:
                 HandleGameStart();
@@ -77,6 +91,7 @@ public class GameManager : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
+
         State = newState;
         // trigger the action, ? prevents null pointer exceptions if no one subscribed.
         OnGameStateChanged?.Invoke(newState);
@@ -86,7 +101,8 @@ public class GameManager : MonoBehaviour
     /// Switch levels by index
     /// </summary>
     /// <param name="index">scene index from the building view.</param>
-    public void SwitchLevel(int index) {
+    public void SwitchLevel(int index)
+    {
         // create the cutscene object
         StartCoroutine(LoadScene(index));
     }
@@ -97,36 +113,39 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="index">scene index from the scene builder</param>
     /// <returns>async task</returns>
-    private IEnumerator LoadScene(int index) {
+    private IEnumerator LoadScene(int index)
+    {
         CutSceneLoader.Instance.FadeIn();
         // if you want the animation to be longer, change 1s to > 1s.
         yield return new WaitForSeconds(1);
         AsyncOperation aysncOp = SceneManager.LoadSceneAsync(index);
         // when the async task is completed
-        aysncOp.completed += delegate {CutSceneLoader.Instance.FadeOut();};
+        aysncOp.completed += delegate { CutSceneLoader.Instance.FadeOut(); };
+    }
+
+    public void ReloadLevel()
+    {
+        Debug.Log("Reloading current level /w/ cutscene!");
+        SwitchLevel(_level.ToIndex());
     }
 
     /// <summary>
-    ///     Handles lose event
-    ///     Unimplemented - we don't know the specific logic rn.
+    ///     Handles lose event -- reload level
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
-    private void HandleLose() {
-        // TODO: impelement this
-        Debug.Log("Game Over");
-        throw new NotImplementedException();
+    private void HandleLose()
+    {
+        ReloadLevel();
     }
 
     /// <summary>
-    ///     Handles win event
-    ///     Unimplemented - we don't know the specific logic rn.
+    ///     Handles win event -- switch to next level.
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
-    private void HandleWin() {
-        // TODO: implement this
-        Debug.Log("Game Won");
-        SwitchLevel(1);
-        // throw new NotImplementedException();
+    private void HandleWin()
+    {
+        Debug.Log("Game won, moving to next level!");
+        SwitchLevel(_level.NextLevel().ToIndex());
     }
 
     /// <summary>
@@ -134,8 +153,8 @@ public class GameManager : MonoBehaviour
     ///     Unimplemented - we don't know the specific logic rn.
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
-    private void HandleGameStart() {
-        // TODO: implement this
+    private void HandleGameStart()
+    {
         Debug.Log("Game Started");
         throw new NotImplementedException();
     }
@@ -145,7 +164,8 @@ public class GameManager : MonoBehaviour
 /// <summary>
 ///     Defines all kinds of game states.
 /// </summary>
-public enum GameState {
+public enum GameState
+{
     StartingScreen,
     OnGame,
     Win,
