@@ -125,6 +125,12 @@ public class GameManager : MonoBehaviour
 
     public void ReloadLevel()
     {
+        // TODO: make this actually work @minghao
+        // idk enough about c# delegates & coroutines for this - currently it constantly reloads
+        
+        /*
+         * Ignore what i'm trying
+         */
         Debug.Log("Reloading current level /w/ cutscene!");
         SwitchLevel(_level.ToIndex());
     }
