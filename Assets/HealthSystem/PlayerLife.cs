@@ -42,7 +42,6 @@ public class PlayerLife : MonoBehaviour
         if (transform.position.x < minX || transform.position.x > maxX ||
             transform.position.y < minY || transform.position.y > maxY)
         {
-            audioManager.PlaySFX(audioManager.chameleonDamage);
             playerDie();
         }
     }
